@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*****
+
+This file modified by Microsoft Corporation
+© 2017 Microsoft Corporation
+
+*****/
+
+using System;
 using System.IO;
 
 using System.Collections;
@@ -737,11 +744,11 @@ namespace ProtoBuf.Meta
             {   // fallback: look for ICollection<T>'s Add(typedObject) method
 
                 bool forceList = listTypeInfo.IsInterface &&
-                    listTypeInfo == model.MapType(typeof(System.Collections.Generic.IEnumerable<>)).MakeGenericType(types)
+                    model.MapType(typeof(System.Collections.Generic.IEnumerable<>)).MakeGenericType(types)
 #if WINRT || COREFX
                     .GetTypeInfo()
 #endif
-                    ;
+                    .IsAssignableFrom(listTypeInfo);
 
 #if WINRT || COREFX
                 TypeInfo constuctedListType = typeof(System.Collections.Generic.ICollection<>).MakeGenericType(types).GetTypeInfo();
